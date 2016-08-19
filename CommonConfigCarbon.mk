@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#dont build AOSP camera HAL
-USE_SONY_CAMERA := true
+# This is a Sony AOSP device
+SONY_AOSP := true
 
 # Healthd
 HEALTHD_FORCE_BACKLIGHT_CONTROL := true
