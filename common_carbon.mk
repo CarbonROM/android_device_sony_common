@@ -15,11 +15,6 @@
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/sony/msm
 
-# init_sony tools
-PRODUCT_PACKAGES += \
-    init_sony \
-    keycheck
-
 # SELinux
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
