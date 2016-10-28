@@ -15,6 +15,8 @@
 # This is a Sony AOSP device
 SONY_AOSP := true
 
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+
 # Healthd
 HEALTHD_FORCE_BACKLIGHT_CONTROL := true
 HEALTHD_ENABLE_TRICOLOR_LED := true
