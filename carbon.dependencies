@@ -15,7 +15,7 @@
     "remote": "gh",
     "repository": "sonyxperiadev/device-sony-sepolicy",
     "target_path": "device/sony/sepolicy",
-    "revision": "master"
+    "revision": "n-mr0"
   },
   {
     "remote": "gh",
