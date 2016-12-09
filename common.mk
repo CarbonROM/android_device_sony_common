@@ -152,6 +152,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
+# For android_filesystem_config.h
+PRODUCT_PACKAGES += \
+    fs_config_files
+
 # APN list
 # PRODUCT_COPY_FILES += \
 #    device/sample/etc/old-apns-conf.xml:system/etc/old-apns-conf.xml \
@@ -258,7 +262,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=0 \
+    persist.camera.HAL3.enabled=1 \
     persist.camera.gyro.disable=1 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
