@@ -56,5 +56,11 @@
     "repository": "sonyxperiadev/packages_apps_ExtendedSettings",
     "target_path": "packages/apps/ExtendedSettings",
     "revision": "master"
+  },
+  {
+    "remote": "gh",
+    "repository": "sonyxperiadev/packages-apps-FMRadio",
+    "target_path": "packages/apps/FMRadio",
+    "revision": "master"
   }
 ]
