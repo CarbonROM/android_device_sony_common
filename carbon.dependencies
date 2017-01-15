@@ -6,7 +6,7 @@
     "revision": "master"
   },
   {
-    "repository": "sonyxperiadev/kernel",
+    "repository": "CarbonROM/kernel",
     "target_path": "kernel/sony/msm",
     "revision": "cr-5.1"
   },
