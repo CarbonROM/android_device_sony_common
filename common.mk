@@ -268,21 +268,31 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port=I2C
 
-# Camera
+# Camera Debug
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.hal.debug=0 \
+    persist.camera.kpi.debug=0 \
+    persist.camera.global.debug=0
+
+# Disable Dual Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.dual.camera.mpo=0 \
+    persist.camera.dc.frame.sync=0 \
+    persist.camera.dcrf.enable=0
+
+# Camera Features
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.gyro.disable=1 \
+    persist.camera.stats.af.paaf=0 \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
     persist.camera.zsl.mode=1 \
     persist.camera.time.monotonic=0
 
-ifneq ($(filter shinano rhine, $(SOMC_PLATFORM)),)
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=0
-else
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.camera.HAL3.enabled=1
-endif
+    persist.camera.HAL3.enabled=0 \
+    media.stagefright.less-secure=true \
+    media.stagefright.legacyencoder=true
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
