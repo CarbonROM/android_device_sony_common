@@ -20,6 +20,11 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
 
+# Audiofix
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.fluencetype=fluence
+    persist.audio.fluence.mode=fluence
+
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnGSMDevice=1
