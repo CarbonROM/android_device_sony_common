@@ -14,7 +14,7 @@
     "remote": "gh",
     "repository": "sonyxperiadev/device-sony-sepolicy",
     "target_path": "device/sony/sepolicy",
-    "revision": "n-mr0"
+    "revision": "n-mr1"
   },
   {
     "remote": "gh",
@@ -26,6 +26,12 @@
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-fm",
     "target_path": "hardware/sony/opensource/fm",
+    "revision": "master"
+  },
+  {
+    "remote": "gh",
+    "repository": "sonyxperiadev/vendor-qcom-opensource-location",
+    "target_path": "hardware/sony/opensource/location",
     "revision": "master"
   },
   {
