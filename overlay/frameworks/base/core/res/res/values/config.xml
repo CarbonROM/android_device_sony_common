@@ -33,7 +33,7 @@
             64 - Volume keys
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
-    <integer name="config_deviceHardwareKeys">96</integer>
+<!--    <integer name="config_deviceHardwareKeys">96</integer> -->
 
     <!-- If this is true, the screen will fade off. -->
     <bool name="config_animateScreenLights">false</bool>
@@ -57,7 +57,7 @@
     <bool name="config_cellBroadcastAppLinks">true</bool>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveNotificationLed">true</bool>
+<!--    <bool name="config_intrusiveNotificationLed">true</bool> -->
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
          USB interfaces.  If the device doesn't want to support tething over USB this should
@@ -251,4 +251,18 @@
         <item>LPP_PROFILE=2</item>
         <item>A_GLONASS_POS_PROTOCOL_SELECT=2</item>
     </string-array>
+
+    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
+<!--    <bool name="config_intrusiveNotificationLed">true</bool> -->
+
+    <!-- Is the battery LED intrusive? Used to decide if there should be a disable option -->
+<!--    <bool name="config_intrusiveBatteryLed">true</bool> -->
+
+    <!-- Does the notification LED support multiple colors?
+         Used to decide if the user can change the colors -->
+<!--    <bool name="config_multiColorNotificationLed">true</bool> -->
+
+    <!-- Does the battery LED support multiple colors?
+         Used to decide if the user can change the colors -->
+<!--    <bool name="config_multiColorBatteryLed">true</bool> -->
 </resources>
