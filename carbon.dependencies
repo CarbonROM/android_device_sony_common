@@ -1,9 +1,7 @@
 [
   {
-    "remote": "carbon",
     "repository": "CarbonROM/android_hardware_sony_camera",
-    "target_path": "hardware/sony/camera",
-    "revision": "cr-5.1"
+    "target_path": "hardware/sony/camera"
   },
   {
     "remote": "gh",
