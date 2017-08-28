@@ -66,6 +66,10 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/etc/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
     $(COMMON_PATH)/rootdir/system/etc/data/qmi_config.xml:system/etc/data/qmi_config.xml
 
+# Seccomp policy
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/seccomp_policy/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy
+
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -115,8 +119,13 @@ PRODUCT_PACKAGES += \
     p2p_supplicant.conf \
     hostapd \
     libwpa_client \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf
+
+# Bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
 
 # CAMERA
 PRODUCT_PACKAGES += \
@@ -310,3 +319,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # sdcardFS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+$(call inherit-product, device/sony/common/treble.mk)
