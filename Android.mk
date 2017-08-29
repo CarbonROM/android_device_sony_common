@@ -81,7 +81,7 @@ MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
-audio-hal := hardware/qcom/audio/default
+audio-hal := hardware/qcom/audio
 gps-hal := hardware/qcom/gps/msm8994
 
 ifeq ($(TARGET_KERNEL_VERSION),3.10)
@@ -105,13 +105,5 @@ include $(display-hal)/Android.mk
 include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
-
-ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
-ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8960)
-else
-  include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
-endif
-endif
 
 endif
