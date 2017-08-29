@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # dont build AOSP camera HAL
-BOARD_USE_ENFORCING_SELINUX := true
+# BOARD_USE_ENFORCING_SELINUX := true
 
 WITH_DEXPREOPT := false
 
