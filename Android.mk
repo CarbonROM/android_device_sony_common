@@ -106,6 +106,13 @@ include $(call all-makefiles-under,$(audio-hal))
 include $(call all-makefiles-under,$(gps-hal))
 include $(call all-makefiles-under,$(media-hal))
 
+USE_DEVICE_SPECIFIC_GPS := true
+DEVICE_SPECIFIC_GPS_PATH := $(gps-hal)
+USE_DEVICE_SPECIFIC_DISPLAY := true
+DEVICE_SPECIFIC_DISPLAY_PATH := $(display-hal)
+USE_DEVICE_SPECIFIC_MEDIA := true
+DEVICE_SPECIFIC_MEDIA_PATH := $(media-hal)
+
 ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
 ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
   include $(call all-makefiles-under,hardware/qcom/bt/msm8960)
