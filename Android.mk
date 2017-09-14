@@ -2,6 +2,10 @@ ifneq ($(filter yukon rhine shinano kanuti kitakami loire tone yoshino,$(PRODUCT
 
 LOCAL_PATH := $(call my-dir)
 
+include $(call all-makefiles-under,$(LOCAL_PATH))
+
+ifeq(0,1)
+
 # vars for use by utils
 empty :=
 space := $(empty) $(empty)
@@ -112,6 +116,8 @@ ifneq ($(filter rhine,$(PRODUCT_PLATFORM)),)
 else
   include $(call all-makefiles-under,hardware/qcom/bt/msm8998)
 endif
+endif
+
 endif
 
 endif
