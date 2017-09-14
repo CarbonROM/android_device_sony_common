@@ -171,6 +171,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
+# RenderScript
+PRODUCT_PACKAGES += \
+    librsjni
+
+# libRSDriver_adreno dependency
+PRODUCT_PACKAGES += \
+    libLLVM
+
 # ExtendedSettings
 PRODUCT_PACKAGES += \
     ExtendedSettings
