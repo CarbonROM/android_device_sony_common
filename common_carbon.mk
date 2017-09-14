@@ -20,7 +20,32 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 DEVICE_SPECIFIC_CAMERA_PATH := hardware/sony/camera
 USE_DEVICE_SPECIFIC_DATASERVICES := true
 DEVICE_SPECIFIC_DATASERVICES_PATH := vendor/qcom/opensource/dataservices
-USE_DEVICE_SPECIFIC_GPS := true
-USE_DEVICE_SPECIFIC_DISPLAY := true
-USE_DEVICE_SPECIFIC_MEDIA := true
 
+ifeq ($(TARGET_KERNEL_VERSION),3.10)
+display-hal := hardware/qcom/display/msm8994
+media-hal := hardware/qcom/media/msm8974
+endif
+
+ifeq ($(TARGET_KERNEL_VERSION),3.18)
+display-hal := hardware/qcom/display/msm8996
+media-hal := hardware/qcom/media/msm8996
+endif
+
+ifeq ($(TARGET_KERNEL_VERSION),4.4)
+display-hal := hardware/qcom/display/msm8998
+QCOM_MEDIA_ROOT := hardware/qcom/media/msm8998
+OMX_VIDEO_PATH := mm-video-v4l2
+media-hal := hardware/qcom/media/msm8998
+endif
+
+ifeq ($(BOARD_HAVE_BLUETOOTH_QCOM),true)
+  USE_DEVICE_SPECIFIC_BT := true
+  DEVICE_SPECIFIC_BT_PATH := hardware/qcom/bt/msm8998
+endif
+
+USE_DEVICE_SPECIFIC_GPS := true
+DEVICE_SPECIFIC_GPS_PATH := hardware/qcom/gps/msm8994
+USE_DEVICE_SPECIFIC_DISPLAY := true
+DEVICE_SPECIFIC_DISPLAY_PATH := $(display-hal)
+USE_DEVICE_SPECIFIC_MEDIA := true
+DEVICE_SPECIFIC_MEDIA_PATH := $(media-hal)
