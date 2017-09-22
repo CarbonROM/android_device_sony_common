@@ -14,4 +14,3 @@
 
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/sony/msm
-TARGET_COMPILE_WITH_MSM_KERNEL := true

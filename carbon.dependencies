@@ -11,6 +11,12 @@
   },
   {
     "remote": "gh",
+    "repository": "sonyxperiadev/device-sony-common-headers",
+    "target_path": "device/sony/common-headers",
+    "revision": "aosp/LA.UM.5.7.r1"
+  },
+  {
+    "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-wlan-fw-api",
     "target_path": "kernel/sony/msm/drivers/staging/wlan-qc/fw-api",
     "revision": "aosp/LA.UM.5.7.r1"
