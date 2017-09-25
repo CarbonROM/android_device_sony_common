@@ -104,11 +104,6 @@ on post-fs-data
 
     # FM Radio
     mkdir /data/misc/fm 0770 system system
-    
-    # RQBalance-PowerHAL PowerServer
-    mkdir /data/misc/powerhal
-    chmod 0773 /data/misc/powerhal
-    chown system system /data/misc/powerhal
 
     chown system /dev/block/bootdevice/by-name
 
@@ -162,6 +157,9 @@ on boot
 
     #Create NETMGR daemon socket area
     mkdir /dev/socket/netmgr 0750 radio radio
+
+    # RQBalance-PowerHAL PowerServer
+    mkdir /dev/socket/powerhal 0773 system system
 
     #create netmgr log dir
     mkdir /data/misc/netmgr 0770 radio radio
@@ -308,6 +306,28 @@ service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     user root
     oneshot
 
+# QCOM prop
+service per_mgr /system/vendor/bin/pm-service
+    class core
+    user system
+    group system net_raw
+    writepid /dev/cpuset/system-background/tasks
+
+# QCOM prop
+service per_proxy /system/vendor/bin/pm-proxy
+    class core
+    user system
+    group system net_raw
+    disabled
+    writepid /dev/cpuset/system-background/tasks
+
+service msm_irqbalance /system/vendor/bin/msm_irqbalance -f /system/etc/msm_irqbalance.conf
+    socket msm_irqbalance seqpacket 660 root system
+    class core
+    user root
+    group root
+    writepid /dev/cpuset/system-background/tasks
+
 # QCOM sensors
 service sensors /system/vendor/bin/sensors.qcom
     class main
@@ -361,6 +381,12 @@ on property:ro.boot.baseband=msm
 
 on property:persist.radio.multisim.config=dsds
     enable ril-daemon2
+
+on property:init.svc.per_mgr=running
+    start per_proxy
+
+on property:sys.shutdown.requested=*
+    stop per_proxy
 
 # adb over network
 on property:adb.network.port.es=*
