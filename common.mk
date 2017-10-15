@@ -40,7 +40,9 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
 PRODUCT_COPY_FILES += \
@@ -51,6 +53,7 @@ PRODUCT_COPY_FILES += \
 # Common init
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc \
+    $(COMMON_PATH)/rootdir/init.common.srv.rc:root/init.common.srv.rc \
     $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc
 
 # Common etc
@@ -128,10 +131,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libbt-vendor
 
+# NFC packages
+PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
+    NfcNci \
+    Tag
+
 # CAMERA
 PRODUCT_PACKAGES += \
     libmmcamera_interface \
     libmmjpeg_interface \
+    libmmlib2d_interface \
     libmm-qcamera \
     libqomx_core
 
@@ -194,7 +204,7 @@ PRODUCT_PACKAGES += \
 
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/lib/librqbalance.so
+    ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
 
 # APN list
 # PRODUCT_COPY_FILES += \
@@ -317,7 +327,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.camera.feature.cac=0 \
     persist.camera.ois.disable=0 \
     persist.camera.eis.enable=0 \
-    persist.camera.zsl.mode=1
+    persist.camera.zsl.mode=1 \
+    persist.camera.exif.rotation=off \
+    persist.camera.lib2d.rotation=on
 
 # Sensors debug
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -329,5 +341,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # sdcardFS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+# RILD
+PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
+    ril.subscription.types=NV,RUIM
+
+PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
 
 $(call inherit-product, device/sony/common/treble.mk)
