@@ -1,4 +1,4 @@
-# Copyright 2015 The Android Open Source Project
+# Copyright 2014 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,24 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
+CUSTOM_IMAGE_MOUNT_POINT := odm
+CUSTOM_IMAGE_PARTITION_SIZE := 419430400
+CUSTOM_IMAGE_FILE_SYSTEM_TYPE := ext4
+CUSTOM_IMAGE_SELINUX := true
 
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := \
-	voice_processing_descriptors.c
-
-LOCAL_C_INCLUDES += \
-	$(call include-path-for, audio-effects)
-
-LOCAL_MULTILIB := $(AUDIOSERVER_MULTILIB)
-
-LOCAL_MODULE := libqcomvoiceprocessingdescriptors
-
-LOCAL_MODULE_RELATIVE_PATH := soundfx
-
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_OWNER := sony
-LOCAL_PROPRIETARY_MODULE := true
-
-include $(BUILD_SHARED_LIBRARY)
+CUSTOM_IMAGE_COPY_FILES := $(foreach p,$(TARGET_OUT_ODM)/bin,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/firmware,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/lib,$(p):) \
+			$(foreach p,$(TARGET_OUT_ODM)/lib64,$(p):)

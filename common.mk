@@ -37,9 +37,12 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
     frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
+    frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
 PRODUCT_COPY_FILES += \
@@ -50,7 +53,12 @@ PRODUCT_COPY_FILES += \
 # Common init
 PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/init.common.rc:root/init.common.rc \
-    $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc \
+    $(COMMON_PATH)/rootdir/init.common.srv.rc:root/init.common.srv.rc \
+    $(COMMON_PATH)/rootdir/init.common.usb.rc:root/init.common.usb.rc
+
+# Legacy Common init
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/init.common.srv-legacy.rc:root/init.common.srv-legacy.rc \
     $(COMMON_PATH)/rootdir/init.common.usb-legacy.rc:root/init.common.usb-legacy.rc
 
 # Common etc
@@ -119,6 +127,16 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# Bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
+
+# NFC packages
+PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
+    NfcNci \
+    Tag
+
 # CAMERA
 PRODUCT_PACKAGES += \
     libmmcamera_interface \
@@ -148,7 +166,8 @@ PRODUCT_PACKAGES += \
 
 # AOSP Packages
 PRODUCT_PACKAGES += \
-    Launcher3
+    Launcher3 \
+    WallpaperPicker
 
 PRODUCT_PACKAGES += \
     libjson \
@@ -162,13 +181,22 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full
 
+# RenderScript
+PRODUCT_PACKAGES += \
+    librsjni
+
+# libRSDriver_adreno dependency
+PRODUCT_PACKAGES += \
+    libLLVM
+
 # ExtendedSettings
 PRODUCT_PACKAGES += \
     ExtendedSettings
 
 # For android_filesystem_config.h
 PRODUCT_PACKAGES += \
-    fs_config_files
+    fs_config_files \
+    fs_config_dirs
 
 # librqbalance
 PRODUCT_PACKAGES += \
@@ -176,7 +204,7 @@ PRODUCT_PACKAGES += \
 
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/lib/librqbalance.so
+    ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
 
 # APN list
 # PRODUCT_COPY_FILES += \
@@ -311,3 +339,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # sdcardFS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
+
+# RILD
+PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libpath=/odm/lib64/libril-qc-qmi-1.so \
+    ril.subscription.types=NV,RUIM
+
+PRODUCT_CUSTOM_IMAGE_MAKEFILES := $(COMMON_PATH)/odm.mk
