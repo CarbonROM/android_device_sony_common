@@ -15,19 +15,19 @@
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-wlan-fw-api",
     "target_path": "kernel/sony/msm/drivers/staging/wlan-qc/fw-api",
-    "revision": "aosp/LA.UM.5.7.r1"
+    "revision": "aosp/LA.UM.6.4.r1"
   },
   {
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-wlan-qca-wifi-host-cmn",
     "target_path": "kernel/sony/msm/drivers/staging/wlan-qc/qca-wifi-host-cmn",
-    "revision": "aosp/LA.UM.5.7.r1"
+    "revision": "aosp/LA.UM.6.4.r1"
   },
   {
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-wlan-qcacld-3.0",
     "target_path": "kernel/sony/msm/drivers/staging/wlan-qc/qcacld-3.0",
-    "revision": "aosp/LA.UM.5.7.r1"
+    "revision": "aosp/LA.UM.6.4.r1"
   },
   {
     "remote": "gh",
@@ -45,12 +45,6 @@
     "remote": "gh",
     "repository": "sonyxperiadev/device-sony-sepolicy",
     "target_path": "device/sony/sepolicy",
-    "revision": "n-mr1"
-  },
-  {
-    "remote": "gh",
-    "repository": "sonyxperiadev/device-sony-common-init",
-    "target_path": "device/sony/common-init",
     "revision": "n-mr1"
   },
   {
@@ -75,7 +69,7 @@
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-location",
     "target_path": "vendor/qcom/opensource/location",
-    "revision": "m-mr1"
+    "revision": "master"
   },
   {
     "remote": "gh",
