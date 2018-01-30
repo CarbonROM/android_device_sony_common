@@ -13,7 +13,8 @@
 # limitations under the License.
 
 on early-init
-    mount debugfs /sys/kernel/debug /sys/kernel/debug mode=755
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
 
 on init
     # Enable subsystem restart
@@ -39,9 +40,33 @@ on init
     write /sys/block/zram0/comp_algorithm lz4
     write /proc/sys/vm/page-cluster 0
 
+on charger
+    # Booting modem
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    wait /dev/block/bootdevice/by-name/oem
+    mount ext4 /dev/block/bootdevice/by-name/oem /odm ro barrier=1
+    start rmt_storage
+    start mlog_qmi_service
+    start irsc_util
+
+on fs
+    mount_all ./fstab.${ro.hardware}
+
+    # /dsp is initially unlabelled so we need to mount
+    # it as rw, restore AOSP labels, then remount
+    restorecon_recursive /dsp
+    mount rootfs rootfs /dsp ro remount
+
+    restorecon_recursive /persist
+
+    write /sys/kernel/boot_adsp/boot 1
+    write /sys/kernel/boot_slpi/boot 1
+    write /dev/ipa 1
+
 on post-fs-data
     # Create directory used by bluetooth subsystem
-    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetooth 2770 bluetooth bluetooth
 
     # To observe dnsmasq.leases file for dhcp information of soft ap.
     chown dhcp system /data/misc/dhcp
@@ -58,7 +83,7 @@ on post-fs-data
     mkdir /data/fpc 0700 system system
 
     mkdir /data/misc/dts 0770 media audio
-    mkdir /data/persist 0770 persist_rw persist_rw
+    mkdir /data/persist 0770 system system
 
     # Create directory used by audio subsystem
     mkdir /data/misc/audio 0770 audio audio
@@ -88,8 +113,6 @@ on post-fs-data
     mkdir /data/audio 0770 media audio
     chmod 2770 /data/audio
 
-    mkdir /data/data/media 0770 media media
-
     # QCOM camera stack
     mkdir /data/misc/camera 0770 camera camera
 
@@ -108,21 +131,47 @@ on post-fs-data
 
     setprop vold.post_fs_data_done 1
 
-on charger
-    # Booting modem
-    wait /dev/block/bootdevice/by-name/system
-    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
-    wait /dev/block/bootdevice/by-name/oem
-    mount ext4 /dev/block/bootdevice/by-name/oem /odm ro barrier=1
-    start rmt_storage
-    start mlog_qmi_service
-    start irsc_util
-
 on early-boot
     # Set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
 on boot
+    # Cover mode
+    chown system system /sys/devices/virtual/input/clearpad/cover_mode_enabled
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_bottom
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_left
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_right
+    chown system system /sys/devices/virtual/input/clearpad/cover_win_top
+
+    # Tap to wake
+    chown system system /sys/devices/virtual/input/clearpad/wakeup_gesture
+    chmod 0660 /sys/devices/virtual/input/clearpad/wakeup_gesture
+
+    # Glove mode
+    chown system system /sys/devices/virtual/input/clearpad/glove
+    chmod 0660 /sys/devices/virtual/input/clearpad/glove
+
+    # Allow access for CCID command/response timeout configuration
+    chown system system /sys/module/ccid_bridge/parameters/bulk_msg_timeout
+
+    # Mark the copy complete flag to not completed
+    write /data/misc/radio/copy_complete 0
+    chown radio radio /data/misc/radio/copy_complete
+    chmod 0660 /data/misc/radio/copy_complete
+
+    # Socket location for RIDL
+    mkdir /dev/socket/RIDL 2770 system system
+
+    # Required for fingerprint
+    chown system system /sys/bus/spi/devices/spi0.1/clk_enable
+    chmod 0660 /sys/bus/spi/devices/spi0.1/clk_enable
+    chown system system /sys/devices/soc/fpc1145_device/spi_prepare
+    chmod 0660 /sys/devices/soc/fpc1145_device/spi_prepare
+    chown system system /sys/devices/soc/fpc1145_device/wakeup_enable
+    chmod 0660 /sys/devices/soc/fpc1145_device/wakeup_enable
+    chown system system /sys/devices/soc/fpc1145_device/irq
+    chmod 0660 /sys/devices/soc/fpc1145_device/irq
+
     # Bluetooth modules
     chown system system /sys/module/bluetooth/parameters/disable_ertm
     chown system system /sys/module/bluetooth/parameters/disable_esco
@@ -135,6 +184,8 @@ on boot
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/device/extldo
+    chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
     # Bluetooth LPM
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/proto
@@ -171,9 +222,6 @@ on boot
     chown radio radio /data/misc/radio/copy_complete
     chmod 0660 /data/misc/radio/copy_complete
 
-    # Create folder for timekeep
-    mkdir /data/time/ 0700 system system
-
     # Camera Recording
     mkdir /dev/video
     symlink /dev/video32 /dev/video/venus_dec
@@ -191,6 +239,10 @@ on boot
     # Dynamic Resolution Switch
     chown system graphics /sys/class/graphics/fb0/mode
     chmod 0664 /sys/class/graphics/fb0/mode
+
+    # Display Calibration
+    chown system graphics /sys/devices/mdss_dsi_panel/pcc_profile
+    chmod 0664 /sys/devices/mdss_dsi_panel/pcc_profile
 
     chown system graphics /sys/class/graphics/fb1/avi_itc
     chown system graphics /sys/class/graphics/fb1/avi_cn0_1
@@ -239,3 +291,11 @@ on boot
 
     setrlimit 4 -1 -1
     write /proc/sys/kernel/dmesg_restrict 0
+
+on property:vold.post_fs_data_done=1
+    # Generate Bluetooth MAC address file only when /data is ready
+    start macaddrsetup
+
+on property:sys.boot_completed=1
+    # Enable ZRAM on boot_complete
+    swapon_all ./fstab.${ro.hardware}

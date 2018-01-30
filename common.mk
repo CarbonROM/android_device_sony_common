@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Vendor version
-TARGET_VENDOR_VERSION := 5
+TARGET_VENDOR_VERSION := 8
 
 # Common path
 COMMON_PATH := device/sony/common
@@ -69,14 +69,17 @@ PRODUCT_COPY_FILES += \
     $(COMMON_PATH)/rootdir/system/vendor/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(COMMON_PATH)/rootdir/system/etc/gps.conf:system/etc/gps.conf \
     $(COMMON_PATH)/rootdir/system/etc/nfcee_access.xml:system/etc/nfcee_access.xml \
-    $(COMMON_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config \
-    $(COMMON_PATH)/rootdir/system/etc/sensors/sensors_settings:system/etc/sensors/sensors_settings
+    $(COMMON_PATH)/rootdir/system/etc/sec_config:system/etc/sec_config
+
+# Sensors common
+PRODUCT_COPY_FILES += \
+    $(COMMON_PATH)/rootdir/vendor/etc/sensors/sensors_settings:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/sensors_settings
 
 # QMI
 PRODUCT_COPY_FILES += \
-    $(COMMON_PATH)/rootdir/system/etc/data/dsi_config.xml:system/etc/data/dsi_config.xml \
-    $(COMMON_PATH)/rootdir/system/etc/data/netmgr_config.xml:system/etc/data/netmgr_config.xml \
-    $(COMMON_PATH)/rootdir/system/etc/data/qmi_config.xml:system/etc/data/qmi_config.xml
+    $(COMMON_PATH)/rootdir/vendor/etc/data/dsi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/dsi_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/data/netmgr_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/netmgr_config.xml \
+    $(COMMON_PATH)/rootdir/vendor/etc/data/qmi_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/data/qmi_config.xml
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -205,9 +208,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librqbalance
 
+# PRODUCT_PLATFORM isn't set yet, thus we check the available path
+ifneq (,$(filter %loire %tone %yoshino,$(PLATFORM_COMMON_PATH)))
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+# ramdump cleaner
+PRODUCT_PACKAGES += \
+    rdclean.sh
+endif
+endif
+
 # librqbalance enablement
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=/system/vendor/lib/librqbalance.so
+    ro.vendor.extension_library=/vendor/lib/librqbalance.so
 
 # APN list
 # PRODUCT_COPY_FILES += \

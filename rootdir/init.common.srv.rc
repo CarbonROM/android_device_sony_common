@@ -109,26 +109,11 @@ service adsprpcd /odm/bin/adsprpcd
    user media
    group media
 
-# OSS thermal management
-service thermanager /system/vendor/bin/thermanager /system/etc/thermanager.xml
-    class main
-    user root
-    group root
-    writepid /dev/cpuset/system-background/tasks
-
 # Offline charger
 service charger /sbin/healthd -c
     class charger
     critical
     seclabel u:r:healthd:s0
-    writepid /dev/cpuset/system-background/tasks
-
-# OSS time
-service timekeep /system/vendor/bin/timekeep restore
-    class late_start
-    user root
-    group root
-    oneshot
     writepid /dev/cpuset/system-background/tasks
 
 # DSDS second ril
@@ -147,7 +132,6 @@ on property:ro.boot.baseband=apq
     enable qmuxd
 
 on property:ro.boot.baseband=msm
-    enable qmuxd
     enable netmgrd
 
 on property:persist.radio.multisim.config=dsds
