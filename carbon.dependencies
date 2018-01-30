@@ -69,7 +69,7 @@
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-qcom-opensource-location",
     "target_path": "vendor/qcom/opensource/location",
-    "revision": "master"
+    "revision": "n-mr1"
   },
   {
     "remote": "gh",
