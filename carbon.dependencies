@@ -102,11 +102,5 @@
     "repository": "sonyxperiadev/packages_apps_ExtendedSettings",
     "target_path": "packages/apps/ExtendedSettings",
     "revision": "master"
-  },
-  {
-    "remote": "gh",
-    "repository": "sonyxperiadev/json-c",
-    "target_path": "hardware/sony/json-c",
-    "revision": "master"
   }
 ]
