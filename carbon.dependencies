@@ -4,6 +4,10 @@
     "target_path": "hardware/sony/camera"
   },
   {
+    "repository": "CarbonROM/android_device_sony_sepolicy",
+    "target_path": "device/sony/sepolicy"
+  },
+  {
     "remote": "gh",
     "repository": "sonyxperiadev/kernel",
     "target_path": "kernel/sony/msm",
@@ -37,12 +41,6 @@
     "remote": "gh",
     "repository": "sonyxperiadev/vendor-broadcom-wlan",
     "target_path": "vendor/broadcom/wlan",
-    "revision": "master"
-  },
-  {
-    "remote": "gh",
-    "repository": "sonyxperiadev/device-sony-sepolicy",
-    "target_path": "device/sony/sepolicy",
     "revision": "master"
   },
   {
