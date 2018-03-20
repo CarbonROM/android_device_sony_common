@@ -22,7 +22,7 @@ TARGET_BOARD_AUTO := true
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_RECOVERY := false
+TARGET_NO_RECOVERY ?= false
 TARGET_NO_KERNEL := false
 
 # common cmdline parameters
@@ -42,7 +42,6 @@ TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 
 TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 BOARD_ROOT_EXTRA_FOLDERS := bt_firmware dsp firmware persist odm
 
