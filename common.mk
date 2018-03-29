@@ -15,6 +15,9 @@
 # Vendor version
 TARGET_VENDOR_VERSION := 11
 
+# Release key
+PRODUCT_DEFAULT_DEV_CERTIFICATE := vendor/oss/release-keys/releasekey
+
 # Common path
 COMMON_PATH := device/sony/common
 
@@ -79,6 +82,11 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 PRODUCT_PACKAGES += \
     rdclean.sh
 endif
+
+# Qcom scripts
+PRODUCT_PACKAGES += \
+    init.qcom.devstart.sh \
+    init.qcom.ipastart.sh
 
 # APN list
 # PRODUCT_COPY_FILES += \
