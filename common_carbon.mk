@@ -15,6 +15,7 @@
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/sony/msm
 TARGET_COMPILE_WITH_MSM_KERNEL := true
+TARGET_KERNEL_CLANG_COMPILE := true
 
 # Widevine DRM
 $(call inherit-product-if-exists, vendor/sony/widevine/widevine.mk)
