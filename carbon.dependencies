@@ -87,6 +87,12 @@
   },
   {
     "remote": "gh",
+    "repository": "sonyxperiadev/transpower",
+    "target_path": "hardware/sony/transpower",
+    "revision": "master"
+  },
+  {
+    "remote": "gh",
     "repository": "sonyxperiadev/thermanager",
     "target_path": "hardware/sony/thermanager",
     "revision": "master"
