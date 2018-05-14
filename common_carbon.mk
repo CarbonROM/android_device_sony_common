@@ -18,3 +18,7 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 
 # Widevine DRM
 $(call inherit-product-if-exists, vendor/sony/widevine/widevine.mk)
+
+# Snap Camera
+PRODUCT_PACKAGES += \
+    Snap
