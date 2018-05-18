@@ -75,6 +75,12 @@
   },
   {
     "remote": "gh",
+    "repository": "sonyxperiadev/vendor-sony-oss-cash",
+    "target_path": "hardware/sony/cash",
+    "revision": "master"
+  },
+  {
+    "remote": "gh",
     "repository": "sonyxperiadev/vendor-sony-oss-fingerprint",
     "target_path": "hardware/sony/fingerprint",
     "revision": "master"
